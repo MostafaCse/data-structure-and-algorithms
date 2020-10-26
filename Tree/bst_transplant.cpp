@@ -1,0 +1,127 @@
+#include<bits/stdc++.h>
+using namespace std;
+struct node
+{
+    int data;
+    node *left;
+    node *right;
+    node *parrent;
+};
+
+node *Create_note(int item)
+{
+    node *new_node;
+    new_node=(node*)malloc(sizeof(node));
+    new_node->data=item;
+    new_node->left=NULL;
+    new_node->right=NULL;
+    new_node->parrent=NULL;
+
+    return new_node;
+}
+
+void Add_left_node(node *Node, node *child)
+{
+    Node->left=child;
+    child->parrent=Node;
+}
+
+void Add_right_node(node *Node, node *child)
+{
+    Node->right=child;
+     child->parrent=Node;
+}
+
+node *bst_insert(node *root, node *child)
+{
+    node *current_node,*parrent_node;
+
+  if(root==NULL)
+  {
+      root=child;
+      return root;
+  }
+
+  current_node=root;
+  while(current_node!=NULL)
+  {
+      parrent_node=current_node;
+      if(child->data<current_node->data)
+        current_node=current_node->left;
+      else
+        current_node=current_node->right;
+  }
+
+  if(child->data<parrent_node->data)
+    Add_left_node(parrent_node,child);
+  else
+    Add_right_node(parrent_node,child);
+
+return root;
+}
+
+node *create_bst()
+{
+    int a[]={5,17,3,7,12,19,1,4};
+    node *root,*nodes;
+    root=Create_note(10);
+    for(int i=0; i<8; i++)
+    {
+        nodes=Create_note(a[i]);
+
+        root=bst_insert(root,nodes);
+    }
+    return root;
+}
+  node *bst_search(node *root,int item)
+{
+    node *not_found=(node*)malloc(sizeof(node));
+            not_found->data=-1;
+    node *nodes=root;
+bool isExits=0;
+
+   if(isExits==1)
+    return nodes;
+   else
+  return  not_found;
+}
+ void in_order(node *root)
+{
+
+    if(root->left!=NULL)
+        in_order(root->left);
+
+    if(root->right!=NULL)
+        in_order(root->right);
+            cout<<root->data<<" ";
+}
+
+node *bst_transplant(node *root,int item, int value)
+{
+node *nodes=root;
+      while(nodes!=NULL)
+    {
+        if(item==nodes->data)   break;
+    else   if(item<nodes->data)   nodes=nodes->left;
+        else  nodes=nodes->right;
+
+    }
+nodes->data=value;
+ return root;
+}
+
+int main()
+{
+    node *root=create_bst();
+
+
+  node *find_result;
+ find_result =bst_transplant(root,7,43);
+
+in_order(root);
+
+
+}
+
+
+
